@@ -63,7 +63,8 @@ ctrl + A-C
 
 ```docker logs -f aptos-fullnode-1 --tail 5000```
 
-**bu sayfada kodu yazarak logların akışını görebilirsiniz. **
+**bu sayfada kodu yazarak logların akışını görebilirsiniz.**
+
 **Sayfalar arasında ctrl + A-P ile geçiş yapabilirsiniz.**
 
 **End**
