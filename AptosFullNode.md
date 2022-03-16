@@ -1,13 +1,13 @@
 **Aşamalar**
 
-**Proje bir devnet başlattı.**
+- **Proje bir devnet başlattı.**
 
-**Ödüllü test ağı 2022'nin ikinci çeyreği için duyuruldu**
+- **Ödüllü test ağı 2022'nin ikinci çeyreği için duyuruldu**
 
-**Mainnet, 2022'nin 3. Çeyreği için planlandı**
+- **Mainnet, 2022'nin 3. Çeyreği için planlandı**
 
 
-**Minimum** gereksinimler aşağıda ki gibidir:
+**Minimum** gereksinimler aşağıdaki gibidir:
  - **CPU**: 2 çekirdek işlemci
  - **RAM**: 4GB Ram
 
