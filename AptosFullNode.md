@@ -59,7 +59,7 @@
 **Container aptos-fullnode-1  Started Bu çıktıları alıyorsanız fullnode sorunsuz kurulmuş demektir.**
 
 ctrl + A-C
-**yaparak yeni bir sayfa açıyoruz. 
+**yaparak yeni bir sayfa açıyoruz.** 
 
 ```docker logs -f aptos-fullnode-1 --tail 5000```
 
