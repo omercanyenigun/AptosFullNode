@@ -1,6 +1,9 @@
 **Aşamalar**
+
 **Proje bir devnet başlattı.**
+
 **Ödüllü test ağı 2022'nin ikinci çeyreği için duyuruldu**
+
 **Mainnet, 2022'nin 3. Çeyreği için planlandı**
 
 
