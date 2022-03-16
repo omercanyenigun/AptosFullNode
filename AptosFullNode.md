@@ -65,12 +65,17 @@ ctrl + A-C
 
 **bu sayfada kodu yazarak logların akışını görebilirsiniz. **
 **Sayfalar arasında ctrl + A-P ile geçiş yapabilirsiniz.**
+
 **End**
 
 **https://t.me/aptos_tr**
+
 **https://t.me/testnetrun**
+
 **https://testnet.run/**
+
 **https://stake.testnet.run/**
+
 **https://twitter.com/testnetrun**
 
 
