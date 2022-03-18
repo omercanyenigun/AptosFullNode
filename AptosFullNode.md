@@ -123,12 +123,13 @@ ctrl + A-C
 **Aptos Klasörüne Girme**
 
 ```cd $HOME/aptos```
-
+```
 sed -i '/      discovery_method: "onchain"$/a\
       identity:\
           type: "from_config"\
           key: "'$PRIVATE_KEY'"\
           peer_id: "'$PEER_ID'"' public_full_node.yaml
+```
         
 **Private Key'i Görüntüleme**
  
