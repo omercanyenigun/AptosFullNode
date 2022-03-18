@@ -13,6 +13,7 @@
 
 
 ```screen -S Anasayfa```
+
 **screen ile bir sayfa oluşturuyoruz.**
 
 ```sudo apt update```
@@ -29,7 +30,9 @@
 
 ```docker version```
 
+
 **docker versiyonu 20.10.13 olarak gözüküyptsa buraya kadar hiçbir sorun yoktur.**
+
 
 ```mkdir -p ~/.docker/cli-plugins/```
 
@@ -70,6 +73,7 @@
 **Container aptos-fullnode-1  Started Bu çıktıları alıyorsanız fullnode sorunsuz kurulmuş demektir.**
 
 ctrl + A-C
+
 **yaparak yeni bir sayfa açıyoruz.** 
 
 ```docker logs -f aptos-fullnode-1 --tail 5000```
@@ -98,7 +102,7 @@ ctrl + A-C
 - **Aptos FullNode Kurmuş Fakat Private Key Oluşturmamışlar İçin Devam Kodları (77. satırdan sonra buradan devam edin)** 
 
 
-**Identity Klasörü Oluşturma (private-key içim)**
+**Identity Klasörü Oluşturma (private-key için)**
 
 ```mkdir $HOME/aptos/identity```
 
@@ -120,17 +124,17 @@ ctrl + A-C
 
 ```cd $HOME/aptos```
 
-```sed -i '/      discovery_method: "onchain"$/a\
+sed -i '/      discovery_method: "onchain"$/a\
       identity:\
           type: "from_config"\
           key: "'$PRIVATE_KEY'"\
-          peer_id: "'$PEER_ID'"' public_full_node.yaml```
+          peer_id: "'$PEER_ID'"' public_full_node.yaml
         
 **Private Key'i Görüntüleme**
  
 ```cat $HOME/aptos/identity/private-key.txt```
  
-**Genel Tanımlayıcı Verilerini Görüntüleme **
+ **Genel Tanımlayıcı Verilerini Görüntüleme**
   
 ```cat $HOME/aptos/identity/id.json```
  
