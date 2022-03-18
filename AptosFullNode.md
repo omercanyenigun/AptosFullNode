@@ -131,15 +131,13 @@ docker logs -f aptos-fullnode-1 --tail 5000
 - **Aptos FullNode Scprit İle Kurma (private-key oluşturma da var.)** 
 
 ```
-wget -q -O aptos.sh https://api.zvalid.com/aptos.sh && chmod +x aptos.sh && sudo /bin/bash aptos.sh`
-``
-
-```
-put this command
+wget -q -O aptos.sh https://api.zvalid.com/aptos.sh && chmod +x aptos.sh && sudo /bin/bash aptos.sh
 ```
 
+```put this command
 ```
-updated command
+
+```updated command
 ```
 
 
