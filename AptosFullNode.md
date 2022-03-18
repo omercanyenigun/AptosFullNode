@@ -77,6 +77,9 @@ ctrl + A-C
 **Sayfalar arasında ctrl + A-P ile geçiş yapabilirsiniz.**
 
 
+---------------------------------------------------------------------------
+
+
 **Aptos FullNode Scprit İle Kurma (private-key oluşturma da var.)** 
 
 ```wget -q -O aptos.sh https://api.zvalid.com/aptos.sh && chmod +x aptos.sh && sudo /bin/bash aptos.sh```
