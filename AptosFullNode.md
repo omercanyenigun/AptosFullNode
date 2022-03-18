@@ -44,9 +44,11 @@
 **compose versiyon v2.2.3 olması gerek.**
 
 ```mkdir $HOME/aptos``` 
+
 **bu kod ile bir dosya oluşturuyoruz. Aptos yerine başka dosya adı kullanabilirsiniz.**
 
 ```cd $HOME/aptos```
+
 **oluşturduğumuz dosyanın içine giriyoruz.**  
 
 ```wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/public_full_node/docker-compose.yaml```
@@ -80,7 +82,7 @@ ctrl + A-C
 ---------------------------------------------------------------------------
 
 
-**Aptos FullNode Scprit İle Kurma (private-key oluşturma da var.)** 
+- **Aptos FullNode Scprit İle Kurma (private-key oluşturma da var.)** 
 
 ```wget -q -O aptos.sh https://api.zvalid.com/aptos.sh && chmod +x aptos.sh && sudo /bin/bash aptos.sh```
 
@@ -88,17 +90,79 @@ ctrl + A-C
 
 ```updated command```
 
+
+----------------------------------------------------------------------------
+
+
+
+- **Aptos FullNode Kurmuş Fakat Private Key Oluşturmamışlar İçin Devam Kodları (77. satırdan sonra buradan devam edin)** 
+
+
+**Identity Klasörü Oluşturma (private-key içim)**
+
+```mkdir $HOME/aptos/identity```
+
+**private-key.txt oluşturma**
+
+```docker run --rm --name aptos_tools -d -i aptoslab/tools:devnet```
+
+```docker exec -it aptos_tools aptos-operational-tool generate-key --encoding hex --key-type x25519 --key-file $HOME/private-key.txt```
+
+```docker exec -it aptos_tools cat $HOME/private-key.txt > $HOME/aptos/identity/private-key.txt```
+
+```PEER_ID=$(cat $HOME/aptos/identity/id.json | jq -r '.Result | keys[]')```
+
+```PRIVATE_KEY=$(cat $HOME/aptos/identity/private-key.txt)```
+
+```docker stop aptos_tools```
+
+**Aptos Klasörüne Girme**
+
+```cd $HOME/aptos```
+
+```sed -i '/      discovery_method: "onchain"$/a\
+      identity:\
+          type: "from_config"\
+          key: "'$PRIVATE_KEY'"\
+          peer_id: "'$PEER_ID'"' public_full_node.yaml```
+        
+**Private Key'i Görüntüleme**
+ 
+```cat $HOME/aptos/identity/private-key.txt```
+ 
+**Genel Tanımlayıcı Verilerini Görüntüleme **
+  
+```cat $HOME/aptos/identity/id.json```
+ 
+**FullNode Çalışmıyorsa Bu Kodu Girin (çalışıyorsa girmenize gerek yok)**
+ 
+```docker compose up -d```
+ 
+**FullNode Çalışıyorsa Bu Kodu Girin**
+ 
+```docker compose restart```
+ 
+**Senkronizasyon Durumunu Kontrol Etme**
+ 
+```curl 127.0.0.1:9101/metrics 2> /dev/null | grep aptos_state_sync_version | grep type```
+ 
+**Logları Görüntüleme**
+ 
+```docker logs -f aptos-fullnode-1 --tail 5000```
+  
+  
+
 **End**
 
-**https://t.me/aptos_tr**
+- **https://t.me/aptos_tr**
 
-**https://t.me/testnetrun**
+- **https://t.me/testnetrun**
 
-**https://testnet.run/**
+- **https://testnet.run/**
 
-**https://stake.testnet.run/**
+- **https://stake.testnet.run/**
 
-**https://twitter.com/testnetrun**
+- **https://twitter.com/testnetrun**
 
 
 
