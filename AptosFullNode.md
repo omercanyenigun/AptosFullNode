@@ -18,55 +18,93 @@ screen -S Anasayfa
 
 **screen ile bir sayfa oluşturuyoruz.**
 
-```sudo apt update```
+```
+sudo apt update
+```
 
-```sudo apt install ca-certificates curl gnupg lsb-release wget -y```
+```
+sudo apt install ca-certificates curl gnupg lsb-release wget -y
+```
 
-```curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg```
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+```
 
-```echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null```
+```
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
 
-```sudo apt update```
+```
+sudo apt update
+```
 
-```sudo apt install docker-ce docker-ce-cli containerd.io -y```
+```
+sudo apt install docker-ce docker-ce-cli containerd.io -y
+```
 
-```docker version```
+```
+docker version
+```
 
 
 **docker versiyonu 20.10.13 olarak gözüküyptsa buraya kadar hiçbir sorun yoktur.**
 
 
-```mkdir -p ~/.docker/cli-plugins/```
+```
+mkdir -p ~/.docker/cli-plugins/
+```
 
-```curl -SL https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose```
+```
+curl -SL https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+```
 
-```chmod +x ~/.docker/cli-plugins/docker-compose```
+```
+chmod +x ~/.docker/cli-plugins/docker-compose
+```
 
-```sudo chown $USER /var/run/docker.sock```
+```
+sudo chown $USER /var/run/docker.sock
+```
 
-```docker compose version```
+```
+docker compose version
+```
 
 **compose versiyon v2.2.3 olması gerek.**
 
-```mkdir $HOME/aptos``` 
+```
+mkdir $HOME/aptos
+``` 
 
 **bu kod ile bir dosya oluşturuyoruz. Aptos yerine başka dosya adı kullanabilirsiniz.**
 
-```cd $HOME/aptos```
+```
+cd $HOME/aptos
+```
 
 **oluşturduğumuz dosyanın içine giriyoruz.**  
 
-```wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/public_full_node/docker-compose.yaml```
+```
+wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/public_full_node/docker-compose.yaml
+```
 
-```wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/public_full_node/public_full_node.yaml```
+```
+wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/public_full_node/public_full_node.yaml
+```
 
-```wget https://devnet.aptoslabs.com/genesis.blob```
+```
+wget https://devnet.aptoslabs.com/genesis.blob
+```
 
-```wget https://devnet.aptoslabs.com/waypoint.txt```
+```
+wget https://devnet.aptoslabs.com/waypoint.txt
+```
 
 **gerekli dosyaları bu kodlarla indiriyoruz.**
 
-```docker compose up -d``` 
+```
+docker compose up -d
+``` 
 
 **node başlatma**
 
@@ -78,7 +116,9 @@ ctrl + A-C
 
 **yaparak yeni bir sayfa açıyoruz.** 
 
-```docker logs -f aptos-fullnode-1 --tail 5000```
+```
+docker logs -f aptos-fullnode-1 --tail 5000
+```
 
 **bu sayfada kodu yazarak logların akışını görebilirsiniz.**
 
@@ -90,41 +130,63 @@ ctrl + A-C
 
 - **Aptos FullNode Scprit İle Kurma (private-key oluşturma da var.)** 
 
-```wget -q -O aptos.sh https://api.zvalid.com/aptos.sh && chmod +x aptos.sh && sudo /bin/bash aptos.sh```
+```
+wget -q -O aptos.sh https://api.zvalid.com/aptos.sh && chmod +x aptos.sh && sudo /bin/bash aptos.sh`
+``
 
-```put this command```
+```
+put this command
+```
 
-```updated command```
+```
+updated command
+```
 
 
 ----------------------------------------------------------------------------
 
 
 
-- **Aptos FullNode Kurmuş Fakat Private Key Oluşturmamışlar İçin Devam Kodları (77. satırdan sonra buradan devam edin)** 
+- **Aptos FullNode Kurmuş Fakat Private Key Oluşturmamışlar İçin Devam Kodları** 
 
 
 **Identity Klasörü Oluşturma (private-key için)**
 
-```mkdir $HOME/aptos/identity```
+```
+mkdir $HOME/aptos/identity
+```
 
 **private-key.txt oluşturma**
 
-```docker run --rm --name aptos_tools -d -i aptoslab/tools:devnet```
+```
+docker run --rm --name aptos_tools -d -i aptoslab/tools:devnet
+```
 
-```docker exec -it aptos_tools aptos-operational-tool generate-key --encoding hex --key-type x25519 --key-file $HOME/private-key.txt```
+```
+docker exec -it aptos_tools aptos-operational-tool generate-key --encoding hex --key-type x25519 --key-file $HOME/private-key.txt
+```
 
-```docker exec -it aptos_tools cat $HOME/private-key.txt > $HOME/aptos/identity/private-key.txt```
+```
+docker exec -it aptos_tools cat $HOME/private-key.txt > $HOME/aptos/identity/private-key.txt
+```
 
-```PEER_ID=$(cat $HOME/aptos/identity/id.json | jq -r '.Result | keys[]')```
+```
+PEER_ID=$(cat $HOME/aptos/identity/id.json | jq -r '.Result | keys[]')
+```
 
-```PRIVATE_KEY=$(cat $HOME/aptos/identity/private-key.txt)```
+```
+PRIVATE_KEY=$(cat $HOME/aptos/identity/private-key.txt)
+```
 
-```docker stop aptos_tools```
+```
+docker stop aptos_tools
+```
 
 **Aptos Klasörüne Girme**
 
-```cd $HOME/aptos```
+```
+cd $HOME/aptos
+```
 ```
 sed -i '/      discovery_method: "onchain"$/a\
       identity:\
@@ -135,27 +197,39 @@ sed -i '/      discovery_method: "onchain"$/a\
         
 **Private Key'i Görüntüleme**
  
-```cat $HOME/aptos/identity/private-key.txt```
+```
+cat $HOME/aptos/identity/private-key.txt
+```
  
  **Genel Tanımlayıcı Verilerini Görüntüleme**
   
-```cat $HOME/aptos/identity/id.json```
+```
+cat $HOME/aptos/identity/id.json
+```
  
 **FullNode Çalışmıyorsa Bu Kodu Girin (çalışıyorsa girmenize gerek yok)**
  
-```docker compose up -d```
+```
+docker compose up -d
+```
  
 **FullNode Çalışıyorsa Bu Kodu Girin**
  
-```docker compose restart```
+```
+docker compose restart
+```
  
 **Senkronizasyon Durumunu Kontrol Etme**
  
-```curl 127.0.0.1:9101/metrics 2> /dev/null | grep aptos_state_sync_version | grep type```
+```
+curl 127.0.0.1:9101/metrics 2> /dev/null | grep aptos_state_sync_version | grep type
+```
  
 **Logları Görüntüleme**
  
-```docker logs -f aptos-fullnode-1 --tail 5000```
+```
+docker logs -f aptos-fullnode-1 --tail 5000
+```
   
   
 
