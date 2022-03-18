@@ -12,7 +12,9 @@
  - **RAM**: 4GB Ram
 
 
-```screen -S Anasayfa```
+```
+screen -S Anasayfa
+```
 
 **screen ile bir sayfa oluşturuyoruz.**
 
