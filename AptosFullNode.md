@@ -150,10 +150,10 @@ updated command
 - **Aptos FullNode Kurmuş Fakat Private Key Oluşturmamışlar İçin Devam Kodları** 
 
 
-**Identity Klasörü Oluşturma (private-key için)**
+**Kimlik Klasörü Oluşturma (private-key için)**
 
 ```
-mkdir $HOME/aptos/identity
+mkdir $HOME/aptos/kimlik
 ```
 
 **private-key.txt oluşturma**
@@ -167,15 +167,19 @@ docker exec -it aptos_tools aptos-operational-tool generate-key --encoding hex -
 ```
 
 ```
-docker exec -it aptos_tools cat $HOME/private-key.txt > $HOME/aptos/identity/private-key.txt
+docker exec -it aptos_tools cat $HOME/private-key.txt > $HOME/aptos/kimlik/private-key.txt
 ```
 
 ```
-PEER_ID=$(cat $HOME/aptos/identity/id.json | jq -r '.Result | keys[]')
+docker exec -it aptos_tools aptos-operational-tool extract-peer-from-file --encoding hex --key-file $HOME/private-key.txt --output-file $HOME/peer-info.yaml > $HOME/aptos/kimlik/id.json
 ```
 
 ```
-PRIVATE_KEY=$(cat $HOME/aptos/identity/private-key.txt)
+PEER_ID=$(cat $HOME/aptos/kimlik/id.json | jq -r '.Result | keys[]')
+```
+
+```
+PRIVATE_KEY=$(cat $HOME/aptos/kimlik/private-key.txt)
 ```
 
 ```
@@ -189,7 +193,7 @@ cd $HOME/aptos
 ```
 ```
 sed -i '/      discovery_method: "onchain"$/a\
-      identity:\
+      kimlik:\
           type: "from_config"\
           key: "'$PRIVATE_KEY'"\
           peer_id: "'$PEER_ID'"' public_full_node.yaml
@@ -198,13 +202,13 @@ sed -i '/      discovery_method: "onchain"$/a\
 **Private Key'i Görüntüleme**
  
 ```
-cat $HOME/aptos/identity/private-key.txt
+cat $HOME/aptos/kimlik/private-key.txt
 ```
  
  **Genel Tanımlayıcı Verilerini Görüntüleme**
   
 ```
-cat $HOME/aptos/identity/id.json
+cat $HOME/aptos/kimlik/id.json
 ```
  
 **FullNode Çalışmıyorsa Bu Kodu Girin (çalışıyorsa girmenize gerek yok)**
