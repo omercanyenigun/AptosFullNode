@@ -12,241 +12,43 @@
  - **RAM**: 4GB Ram
 
 
+**Sıfırdan Kurulum İçin Yapılması Gerekenler**
+
+- **Screen ile bir sayfa oluşturuyoruz**
+- 
 ```
 screen -S Anasayfa
 ```
 
-**screen ile bir sayfa oluşturuyoruz.**
-
-```
-sudo apt update
-```
-
-```
-sudo apt install ca-certificates curl gnupg lsb-release wget -y
-```
-
-```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-```
-
-```
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
-
-```
-sudo apt update
-```
-
-```
-sudo apt install docker-ce docker-ce-cli containerd.io -y
-```
-
-```
-docker version
-```
-
-
-**docker versiyonu 20.10.13 olarak gözüküyptsa buraya kadar hiçbir sorun yoktur.**
-
-
-```
-mkdir -p ~/.docker/cli-plugins/
-```
-
-```
-curl -SL https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
-```
-
-```
-chmod +x ~/.docker/cli-plugins/docker-compose
-```
-
-```
-sudo chown $USER /var/run/docker.sock
-```
-
-```
-docker compose version
-```
-
-**compose versiyon v2.2.3 olması gerek.**
-
-```
-mkdir $HOME/aptos
-``` 
-
-**bu kod ile bir dosya oluşturuyoruz. Aptos yerine başka dosya adı kullanabilirsiniz.**
-
-```
-cd $HOME/aptos
-```
-
-**oluşturduğumuz dosyanın içine giriyoruz.**  
-
-```
-wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/public_full_node/docker-compose.yaml
-```
-
-```
-wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/public_full_node/public_full_node.yaml
-```
-
-```
-wget https://devnet.aptoslabs.com/genesis.blob
-```
-
-```
-wget https://devnet.aptoslabs.com/waypoint.txt
-```
-
-**gerekli dosyaları bu kodlarla indiriyoruz.**
-
-```
-docker compose up -d
-``` 
-
-**node başlatma**
-
-**Network aptos_default       Created**                                                              
-**Volume "aptos_db"           Created**                       
-**Container aptos-fullnode-1  Started Bu çıktıları alıyorsanız fullnode sorunsuz kurulmuş demektir.**
-
-ctrl + A-C
-
-**yaparak yeni bir sayfa açıyoruz.** 
-
-```
-docker logs -f aptos-fullnode-1 --tail 5000
-```
-
-**bu sayfada kodu yazarak logların akışını görebilirsiniz.**
-
-**Sayfalar arasında ctrl + A-P ile geçiş yapabilirsiniz.**
-
-
----------------------------------------------------------------------------
-
-
-- **Aptos FullNode Scprit İle Kurma (private-key oluşturma da var.)** 
+**FullNode Kurulumu ve Key Oluşturma Scripti**
 
 ```
 wget -q -O aptos.sh https://api.zvalid.com/aptos.sh && chmod +x aptos.sh && sudo /bin/bash aptos.sh
 ```
 
-```
-put this command
-```
-
-```
-updated command
-```
-
-
-----------------------------------------------------------------------------
-
-
-
-- **Aptos FullNode Kurmuş Fakat Private Key Oluşturmamışlar İçin Devam Kodları** 
-
-
-**Kimlik Klasörü Oluşturma (private-key için)**
-
-```
-mkdir $HOME/aptos/kimlik
-```
-
-**private-key.txt oluşturma**
-
-```
-docker run --rm --name aptos_tools -d -i aptoslab/tools:devnet
-```
-
-```
-docker exec -it aptos_tools aptos-operational-tool generate-key --encoding hex --key-type x25519 --key-file $HOME/private-key.txt
-```
-
-```
-docker exec -it aptos_tools cat $HOME/private-key.txt > $HOME/aptos/kimlik/private-key.txt
-```
-
-```
-docker exec -it aptos_tools aptos-operational-tool extract-peer-from-file --encoding hex --key-file $HOME/private-key.txt --output-file $HOME/peer-info.yaml > $HOME/aptos/kimlik/id.json
-```
-
-```
-PEER_ID=$(cat $HOME/aptos/kimlik/id.json | jq -r '.Result | keys[]')
-```
-
-```
-PRIVATE_KEY=$(cat $HOME/aptos/kimlik/private-key.txt)
-```
-
-```
-docker stop aptos_tools
-```
-
-**Aptos Klasörüne Girme**
-
-```
-cd $HOME/aptos
-```
-```
-sed -i '/      discovery_method: "onchain"$/a\
-      kimlik:\
-          type: "from_config"\
-          key: "'$PRIVATE_KEY'"\
-          peer_id: "'$PEER_ID'"' public_full_node.yaml
-```
-        
-**Private Key'i Görüntüleme**
- 
-```
-cat $HOME/aptos/kimlik/private-key.txt
-```
- 
- **Genel Tanımlayıcı Verilerini Görüntüleme**
-  
-```
-cat $HOME/aptos/kimlik/id.json
-```
- 
-**FullNode Çalışmıyorsa Bu Kodu Girin (çalışıyorsa girmenize gerek yok)**
- 
-```
-docker compose up -d
-```
- 
-**FullNode Çalışıyorsa Bu Kodu Girin**
- 
-```
-docker compose restart
-```
- 
 **Senkronizasyon Durumunu Kontrol Etme**
- 
+
+- **CTRL A-C ile yeni sayfa açtıktan sonra**
+
 ```
 curl 127.0.0.1:9101/metrics 2> /dev/null | grep aptos_state_sync_version | grep type
 ```
- 
+
 **Logları Görüntüleme**
- 
+
+- **CTRL A-C ile yeni sayfa açtıktan sonra**
+
 ```
 docker logs -f aptos-fullnode-1 --tail 5000
 ```
-------------------------------------------------------------------------------------------
 
+**FirstTransaction Adımı**
 
- - **AptosFullNode FirstTransaction Klavuzu**
-
-**Fullnode'u çalıştırıyorsanız, bu adıma hazırsınız : python3'ü bu kodla kurun**
-
+- **CTRL A-C ile yeni sayfa açtıktan sonra**
 
 ```
 apt install python3-pip
 ```
-
-**First_transaction.py'yi İndirin**
 
 ```
 wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/developer-docs-site/static/examples/python/first_transaction.py
@@ -255,6 +57,9 @@ wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/developer-docs
 ```
 python3 first_transaction.py
 ```
+
+- **Sayfalar arası geçisi CTRL A-P ile yapabilirsiniz**
+
 
 **İşlemlerin tamamlanması ve işlemin bitmesi için birkaç saniye bekleyin.**
   
