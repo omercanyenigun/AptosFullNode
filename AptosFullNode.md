@@ -15,7 +15,7 @@
 **Sıfırdan Kurulum İçin Yapılması Gerekenler**
 
 - **Screen ile bir sayfa oluşturuyoruz**
-- 
+
 ```
 screen -S Anasayfa
 ```
