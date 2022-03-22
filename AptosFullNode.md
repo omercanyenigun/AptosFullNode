@@ -62,6 +62,8 @@ python3 first_transaction.py
 
 
 **İşlemlerin tamamlanması ve işlemin bitmesi için birkaç saniye bekleyin.**
+
+**Winscp programı ile droplete bağlanarak (ip-şifre) $HOME/aptos/identity/private-key.txt bu yoldan private dosyasını indirebilirsiniz.**
   
   
 
