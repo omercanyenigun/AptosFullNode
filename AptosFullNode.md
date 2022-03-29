@@ -66,7 +66,9 @@ python3 first_transaction.py
 **Winscp programı ile droplete bağlanarak (ip-şifre) $HOME/aptos/identity/private-key.txt bu yoldan private dosyasını indirebilirsiniz.**
 
 
-- **Önceden Kurmusanız Ve Synced Değeri Sabit İse Yapmanız Gerekenler. (Günelleme)**
+**GÜNCELLEME**
+
+- **ÖNCEDEN KURMUŞSANIZ VE SYNCED DEĞERİ SABİT İSE YAPMANIZ GEREKENLER.**
 
 
 **Aptos klasörü içine girme**
