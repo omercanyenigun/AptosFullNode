@@ -64,6 +64,59 @@ python3 first_transaction.py
 **İşlemlerin tamamlanması ve işlemin bitmesi için birkaç saniye bekleyin.**
 
 **Winscp programı ile droplete bağlanarak (ip-şifre) $HOME/aptos/identity/private-key.txt bu yoldan private dosyasını indirebilirsiniz.**
+
+
+- **Önceden Kurmusanız Ve Synced Değeri Sabit İse Yapmanız Gerekenler. (Günelleme)**
+
+
+**Aptos klasörü içine girme**
+
+```
+cd aptos
+```
+**Node durdurma**
+
+```
+docker compose stop
+```
+
+**Veri klasörünü silmek için var/lib/docker/volumes/aptos_db/_data klasörünün İÇİNİ silin. (Winscp veya CyberDuck uygulamaları ile)**
+
+**Dosya silme kodları**
+
+```
+rm genesis.blob
+```
+
+```
+rm waypoint.txt
+```
+
+```
+rm public_full_node.yaml
+```
+
+
+**İndirme Kodları**
+
+```
+wget https://devnet.aptoslabs.com/genesis.blob
+```
+
+```
+wget https://devnet.aptoslabs.com/waypoint.txt
+```
+
+```
+wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/public_full_node/public_full_node.yaml
+```
+
+
+**Node Restart**
+
+```
+docker compose restart
+```
   
   
 
